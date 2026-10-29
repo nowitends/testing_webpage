@@ -1,0 +1,15 @@
+site_name: Chile Field Guide
+site_description: A research portal about Chile's geography, people, nature, astronomy, and culture.
+site_url: https://nowitends.github.io/testing_webpage/
+docs_dir: docs
+site_dir: site
+theme:
+  name: readthedocs
+nav:
+  - Home: index.md
+  - Country overview: country-overview.md
+  - Population: population.md
+  - Nature and places: nature-and-places.md
+  - Astronomy: astronomy.md
+  - History and culture: history-culture.md
+  - Visualization ideas: visualization-ideas.md

@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - "website/**"
+      - "website2/**"
       - ".github/workflows/deploy-website.yml"
   workflow_dispatch:
 
@@ -27,12 +28,24 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: website2/requirements.txt
+      - name: Install MkDocs
+        run: python -m pip install -r website2/requirements.txt
+      - name: Build MkDocs portal
+        run: python -m mkdocs build --strict --config-file website2/mkdocs.yml
+      - name: Include the single-file website
+        run: cp -R website website2/site/website
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
-      - name: Upload website
+      - name: Upload portal
         uses: actions/upload-pages-artifact@v3
         with:
-          path: website
+          path: website2/site
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4

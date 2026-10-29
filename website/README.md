@@ -12,34 +12,33 @@ assets.
 
 ## Share it on the internet with GitHub Pages
 
-This repository includes a GitHub Actions workflow that publishes only the
-`website` folder. The repository is public, so the finished page will be
-available to everyone with a browser.
+This repository includes a GitHub Actions workflow that publishes the MkDocs
+portal from `website2/`. The repository is public, so the finished page is
+available to everyone with a browser. This single-file website remains
+available at <https://nowitends.github.io/testing_webpage/website/>.
 
-1. Push the `website` folder and `.github/workflows/deploy-website.yml` to the
-   repository's `main` branch.
-2. On GitHub, open the repository and go to **Settings → Pages**.
-3. Under **Build and deployment**, set **Source** to **GitHub Actions**.
-4. Open the **Actions** tab and select **Deploy website**. If the workflow has
-   not started, select **Run workflow** and choose the `main` branch.
-5. Wait for the deployment run to finish successfully. The public website URL
-   is <https://nowitends.github.io/testing_webpage/>.
+1. Push the `website2/` folder and `.github/workflows/deploy-website.yml` to
+   the repository's `main` branch.
+2. The **Deploy website** workflow builds the MkDocs project and publishes it
+   to <https://nowitends.github.io/testing_webpage/>.
+3. If the workflow has not started, open the **Actions** tab, select
+   **Deploy website**, and choose **Run workflow** for the `main` branch.
+4. Wait for the deployment run to finish successfully.
 
-After setup, each push that changes `website/` automatically republishes the
-site. You can also start a deployment from the **Actions** tab. If the workflow
-ran before Pages was enabled and failed, enable Pages as above, then rerun the
-workflow.
+The repository's Pages source must be set to **GitHub Actions** under
+**Settings → Pages**. Each push that changes `website/`, `website2/`, or the
+deployment workflow automatically republishes both sites. The single-file
+version is included under the `/website/` path.
 
 You can also publish the `website` folder using another static web host: select
 `website` as the publish directory and share the public URL provided by that
 host. Do not share the local file path; it only works on your computer.
 
-## Updating the site
+## Updating the single-file site
 
 Edit `index.html`, save it, and reload the page. The source notes are in the
 Markdown files in the repository; update the corresponding website content when
 those figures or descriptions change. Census figures are specifically labeled
 as enumerated 2024 data. Place coordinates are approximate.
 
-This is a plain HTML site, not a MkDocs project. MkDocs can be explored later as
-a separate way to publish the Markdown documentation.
+For the MkDocs portal, see [the website2 setup guide](../website2/README.md).
