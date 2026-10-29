@@ -1,4 +1,4 @@
-# Chile: Country Overview
+# Chile: Overview
 
 ## Essential facts
 
