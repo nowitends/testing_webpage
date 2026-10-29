@@ -1,0 +1,970 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A visual guide to Chile's geography, people, nature, observatories and culture.">
+  <meta name="theme-color" content="#172d35">
+  <title>Chile, from desert to ice</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #172d35;
+      --muted: #627378;
+      --paper: #f7f5ef;
+      --white: #fffefa;
+      --line: #dedfd7;
+      --copper: #bd5b3e;
+      --copper-dark: #91432f;
+      --sage: #dce5d8;
+      --sky: #dce9e9;
+      --gold: #efc46e;
+      --serif: Georgia, "Times New Roman", serif;
+      --sans: "Segoe UI", Arial, sans-serif;
+      font-family: var(--sans);
+      color: var(--ink);
+      background: var(--paper);
+      scroll-behavior: smooth;
+    }
+
+    * { box-sizing: border-box; }
+    body { margin: 0; min-width: 320px; }
+    a { color: var(--copper-dark); }
+    a:hover { color: var(--ink); }
+    button, input { font: inherit; }
+    button:focus-visible, a:focus-visible, input:focus-visible {
+      outline: 3px solid var(--gold);
+      outline-offset: 3px;
+    }
+    .skip-link {
+      position: absolute;
+      top: -4rem;
+      left: 1rem;
+      z-index: 20;
+      padding: .8rem 1rem;
+      color: var(--white);
+      background: var(--ink);
+    }
+    .skip-link:focus { top: 1rem; }
+    .wrap { width: min(1120px, calc(100% - 3rem)); margin-inline: auto; }
+
+    .topbar {
+      position: relative;
+      z-index: 2;
+      color: #f7f5ef;
+      background: var(--ink);
+    }
+    .nav-row {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+    }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: .7rem;
+      color: inherit;
+      text-decoration: none;
+      font-size: .92rem;
+      font-weight: 700;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+    .brand-mark {
+      display: grid;
+      width: 30px;
+      height: 30px;
+      place-items: center;
+      color: var(--ink);
+      background: var(--gold);
+      border-radius: 50%;
+      font-family: var(--serif);
+      font-size: 1.1rem;
+    }
+    nav ul {
+      display: flex;
+      align-items: center;
+      gap: clamp(.8rem, 2.2vw, 1.8rem);
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    nav a {
+      color: #dce5df;
+      text-decoration: none;
+      font-size: .86rem;
+    }
+    nav a:hover { color: var(--gold); }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      color: var(--white);
+      background:
+        radial-gradient(ellipse at 82% 28%, rgba(239,196,110,.18), transparent 22rem),
+        linear-gradient(120deg, #172d35 0%, #27464b 58%, #6c5241 100%);
+    }
+    .hero::after {
+      position: absolute;
+      right: -9rem;
+      bottom: -23rem;
+      width: 38rem;
+      height: 38rem;
+      border: 1px solid rgba(255,255,255,.18);
+      border-radius: 50%;
+      box-shadow: 0 0 0 3rem rgba(255,255,255,.025), 0 0 0 7rem rgba(255,255,255,.02);
+      content: "";
+      pointer-events: none;
+    }
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      min-height: 520px;
+      grid-template-columns: minmax(0, 1.25fr) minmax(240px, .75fr);
+      align-items: center;
+      gap: 3rem;
+      padding-block: 5rem;
+    }
+    .eyebrow {
+      margin: 0 0 1.1rem;
+      color: var(--copper);
+      font-size: .74rem;
+      font-weight: 800;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+    .hero .eyebrow { color: var(--gold); }
+    h1, h2, h3, p { margin-top: 0; }
+    h1, h2, h3 { font-family: var(--serif); font-weight: 500; }
+    h1 {
+      max-width: 700px;
+      margin-bottom: 1.2rem;
+      font-size: clamp(3.2rem, 7.2vw, 6.7rem);
+      line-height: .96;
+      letter-spacing: -.055em;
+    }
+    .hero-copy {
+      max-width: 570px;
+      margin-bottom: 2rem;
+      color: #d6e0dc;
+      font-size: 1.1rem;
+      line-height: 1.75;
+    }
+    .hero-link {
+      display: inline-flex;
+      align-items: center;
+      gap: .6rem;
+      padding: .85rem 1.15rem;
+      border: 1px solid rgba(255,255,255,.42);
+      border-radius: 2px;
+      color: var(--white);
+      text-decoration: none;
+      font-size: .9rem;
+    }
+    .hero-link:hover { border-color: var(--gold); color: var(--gold); }
+    .hero-note {
+      align-self: end;
+      max-width: 300px;
+      margin: 0 0 .4rem auto;
+      padding: 1.25rem 0 0 1.25rem;
+      border-top: 1px solid rgba(255,255,255,.4);
+      color: #e4e6dc;
+      font-size: .84rem;
+      line-height: 1.7;
+    }
+    .hero-note strong {
+      display: block;
+      margin-bottom: .35rem;
+      color: var(--gold);
+      font-size: .74rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    main { overflow: hidden; }
+    .section { padding-block: 5.6rem; }
+    .section-white { background: var(--white); }
+    .section-dark { color: var(--white); background: var(--ink); }
+    .section-heading {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 2rem;
+      margin-bottom: 2.3rem;
+    }
+    .section-heading h2 {
+      max-width: 680px;
+      margin-bottom: 0;
+      font-size: clamp(2.2rem, 4vw, 3.65rem);
+      line-height: 1.04;
+      letter-spacing: -.035em;
+    }
+    .section-heading > p {
+      max-width: 370px;
+      margin: 0;
+      color: var(--muted);
+      font-size: .95rem;
+      line-height: 1.7;
+    }
+    .section-dark .section-heading > p { color: #bdcbc6; }
+
+    .fact-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: var(--line);
+    }
+    .fact {
+      min-height: 138px;
+      padding: 1.35rem;
+      background: var(--white);
+    }
+    .fact-label {
+      display: block;
+      margin-bottom: .8rem;
+      color: var(--muted);
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .11em;
+      text-transform: uppercase;
+    }
+    .fact-value {
+      display: block;
+      font-family: var(--serif);
+      font-size: 1.4rem;
+      line-height: 1.2;
+    }
+    .fact-value small {
+      display: block;
+      margin-top: .35rem;
+      color: var(--muted);
+      font-family: var(--sans);
+      font-size: .8rem;
+    }
+    .geography-strip {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: .65rem;
+      margin-top: 2.5rem;
+    }
+    .landscape {
+      min-height: 124px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 1rem;
+      border-radius: 2px;
+      background: var(--sage);
+    }
+    .landscape:nth-child(2n) { background: #e9dfcd; }
+    .landscape:nth-child(3n) { background: var(--sky); }
+    .landscape span:first-child {
+      color: var(--muted);
+      font-size: .67rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+    .landscape span:last-child {
+      font-family: var(--serif);
+      font-size: 1.05rem;
+      line-height: 1.15;
+    }
+
+    .population-layout {
+      display: grid;
+      grid-template-columns: minmax(230px, .7fr) minmax(0, 1.3fr);
+      gap: clamp(2rem, 6vw, 5rem);
+      align-items: start;
+    }
+    .population-total {
+      padding: 1.8rem;
+      color: var(--white);
+      background: var(--ink);
+    }
+    .population-total .big-number {
+      display: block;
+      margin: .4rem 0 .65rem;
+      font-family: var(--serif);
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      letter-spacing: -.05em;
+    }
+    .population-total p { margin-bottom: 0; color: #c4d0cb; line-height: 1.65; }
+    .metric-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: .7rem;
+      margin-top: 1rem;
+    }
+    .metric {
+      padding: 1rem;
+      border: 1px solid var(--line);
+      background: var(--white);
+    }
+    .metric strong { display: block; font-size: 1.25rem; }
+    .metric span { color: var(--muted); font-size: .77rem; }
+    .region-chart h3 {
+      margin-bottom: .35rem;
+      font-size: 1.5rem;
+    }
+    .chart-note { margin-bottom: 1.4rem; color: var(--muted); font-size: .8rem; }
+    .bar-list {
+      display: grid;
+      gap: .85rem;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    .bar-row {
+      display: grid;
+      grid-template-columns: minmax(125px, 1fr) minmax(90px, 1.5fr) 85px;
+      align-items: center;
+      gap: .8rem;
+      font-size: .8rem;
+    }
+    .bar-name { line-height: 1.2; }
+    .bar-track {
+      height: 10px;
+      overflow: hidden;
+      border-radius: 10px;
+      background: #e8e8e1;
+    }
+    .bar-fill {
+      display: block;
+      width: var(--bar);
+      height: 100%;
+      border-radius: inherit;
+      background: var(--copper);
+    }
+    .bar-row:first-child .bar-fill { background: var(--ink); }
+    .bar-value { color: var(--muted); text-align: right; font-variant-numeric: tabular-nums; }
+    .population-caveat {
+      margin: 1.5rem 0 0;
+      padding-top: 1rem;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: .79rem;
+      line-height: 1.6;
+    }
+
+    .places-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .55rem;
+      margin-bottom: 1rem;
+    }
+    .filter-button {
+      padding: .55rem .85rem;
+      border: 1px solid var(--line);
+      border-radius: 99px;
+      color: var(--ink);
+      background: transparent;
+      cursor: pointer;
+      font-size: .8rem;
+    }
+    .filter-button[aria-pressed="true"] {
+      border-color: var(--ink);
+      color: var(--white);
+      background: var(--ink);
+    }
+    .search-label {
+      display: block;
+      margin: 1.1rem 0 .45rem;
+      color: var(--muted);
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+    }
+    .search-input {
+      width: min(100%, 410px);
+      padding: .8rem .9rem;
+      border: 1px solid var(--line);
+      border-radius: 2px;
+      background: var(--white);
+    }
+    .place-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-top: 1.6rem;
+    }
+    .place-card {
+      min-height: 205px;
+      display: flex;
+      flex-direction: column;
+      padding: 1.3rem;
+      border: 1px solid var(--line);
+      background: var(--white);
+    }
+    .place-card[hidden] { display: none; }
+    .place-category {
+      margin-bottom: .9rem;
+      color: var(--copper-dark);
+      font-size: .67rem;
+      font-weight: 800;
+      letter-spacing: .11em;
+      text-transform: uppercase;
+    }
+    .place-card h3 {
+      margin-bottom: .35rem;
+      font-size: 1.35rem;
+      line-height: 1.13;
+    }
+    .place-region { margin-bottom: .8rem; color: var(--muted); font-size: .78rem; }
+    .place-card p:last-of-type {
+      margin-bottom: 1rem;
+      color: #43565b;
+      font-size: .86rem;
+      line-height: 1.55;
+    }
+    .coordinates {
+      display: block;
+      margin-top: auto;
+      padding-top: .75rem;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: .74rem;
+      font-variant-numeric: tabular-nums;
+    }
+    .no-results { margin-top: 1.5rem; color: var(--muted); }
+    .no-results[hidden] { display: none; }
+    .small-note {
+      margin: 1.2rem 0 0;
+      color: var(--muted);
+      font-size: .8rem;
+      line-height: 1.6;
+    }
+
+    .phenomena-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      border: 1px solid rgba(255,255,255,.18);
+      background: rgba(255,255,255,.18);
+    }
+    .phenomenon {
+      min-height: 240px;
+      padding: 1.5rem;
+      background: var(--ink);
+    }
+    .phenomenon-number {
+      display: block;
+      margin-bottom: 2.4rem;
+      color: var(--gold);
+      font-size: .75rem;
+      letter-spacing: .12em;
+    }
+    .phenomenon h3 { margin-bottom: .75rem; font-size: 1.65rem; }
+    .phenomenon p { margin-bottom: 0; color: #c5d0ca; font-size: .9rem; line-height: 1.7; }
+
+    .observatory-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      border: 1px solid rgba(255,255,255,.2);
+      background: rgba(255,255,255,.2);
+    }
+    .observatory {
+      min-height: 195px;
+      padding: 1.35rem;
+      background: var(--ink);
+    }
+    .observatory h3 { margin-bottom: .35rem; font-size: 1.3rem; }
+    .observatory .location { margin-bottom: 1rem; color: #bfcdc6; font-size: .78rem; }
+    .observatory p:last-child { margin-bottom: 0; color: #e5e9e3; font-size: .85rem; line-height: 1.55; }
+    .altitude { color: var(--gold); font-variant-numeric: tabular-nums; }
+    .observatory-note {
+      margin: 1.2rem 0 0;
+      color: #bfcdc6;
+      font-size: .78rem;
+      line-height: 1.6;
+    }
+
+    .timeline {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1.4rem 1rem;
+      margin: 2rem 0 0;
+      padding: 0;
+      list-style: none;
+    }
+    .timeline::before {
+      position: absolute;
+      top: 8px;
+      right: 0;
+      left: 0;
+      height: 1px;
+      background: var(--line);
+      content: "";
+    }
+    .timeline li { position: relative; padding-top: 1.5rem; }
+    .timeline li::before {
+      position: absolute;
+      top: 2px;
+      left: 0;
+      width: 12px;
+      height: 12px;
+      border: 2px solid var(--white);
+      border-radius: 50%;
+      background: var(--copper);
+      box-shadow: 0 0 0 1px var(--copper);
+      content: "";
+    }
+    .timeline time {
+      display: block;
+      margin-bottom: .45rem;
+      color: var(--copper-dark);
+      font-size: .75rem;
+      font-weight: 800;
+      letter-spacing: .04em;
+    }
+    .timeline p { margin: 0; font-size: .85rem; line-height: 1.5; }
+    .culture-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-top: 4rem;
+    }
+    .culture-block {
+      padding-top: 1.3rem;
+      border-top: 2px solid var(--ink);
+    }
+    .culture-block h3 { margin-bottom: 1rem; font-size: 1.65rem; }
+    .food-list, .culture-topics { margin: 0; padding: 0; list-style: none; }
+    .food-list li, .culture-topics li {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: .7rem 0;
+      border-bottom: 1px solid var(--line);
+      font-size: .85rem;
+      line-height: 1.45;
+    }
+    .food-list span:last-child { color: var(--muted); text-align: right; }
+    .culture-topics li { display: list-item; padding-left: 1rem; position: relative; }
+    .culture-topics li::before {
+      position: absolute;
+      left: 0;
+      color: var(--copper);
+      content: "—";
+    }
+
+    .sources {
+      padding-block: 3.5rem;
+      color: #dce5df;
+      background: #102229;
+    }
+    .sources-inner {
+      display: grid;
+      grid-template-columns: .7fr 1.3fr;
+      gap: 2rem;
+    }
+    .sources h2 { margin: 0; font-size: 1.8rem; }
+    .sources p { margin: .5rem 0 0; color: #aebdb7; font-size: .82rem; line-height: 1.6; }
+    .source-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: .75rem 1.5rem;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    .source-list a { color: #f0c77d; font-size: .82rem; line-height: 1.4; }
+    .source-list a:hover { color: var(--white); }
+    footer {
+      padding-block: 1.3rem;
+      color: #aebdb7;
+      background: #0c1a20;
+      font-size: .76rem;
+    }
+    .footer-row { display: flex; justify-content: space-between; gap: 1rem; }
+
+    @media (max-width: 850px) {
+      .hero-inner { grid-template-columns: 1fr .55fr; gap: 1.5rem; }
+      .fact-grid { grid-template-columns: repeat(2, 1fr); }
+      .geography-strip { grid-template-columns: repeat(4, 1fr); }
+      .place-grid { grid-template-columns: repeat(2, 1fr); }
+      .timeline { grid-template-columns: repeat(4, 1fr); }
+    }
+    @media (max-width: 620px) {
+      .wrap { width: min(100% - 2rem, 1120px); }
+      .nav-row { min-height: auto; align-items: flex-start; flex-direction: column; padding-block: 1rem; gap: .85rem; }
+      nav { width: 100%; overflow-x: auto; }
+      nav ul { width: max-content; gap: 1.15rem; }
+      nav a { font-size: .8rem; }
+      .hero-inner { min-height: 490px; grid-template-columns: 1fr; gap: 2rem; padding-block: 4rem 3rem; }
+      .hero-note { margin-left: 0; }
+      .section { padding-block: 4rem; }
+      .section-heading { align-items: flex-start; flex-direction: column; gap: 1rem; }
+      .geography-strip { grid-template-columns: repeat(2, 1fr); }
+      .population-layout { grid-template-columns: 1fr; }
+      .place-grid, .phenomena-grid, .observatory-grid { grid-template-columns: 1fr; }
+      .place-card { min-height: 185px; }
+      .phenomenon { min-height: auto; }
+      .phenomenon-number { margin-bottom: 1.3rem; }
+      .timeline { grid-template-columns: repeat(2, 1fr); }
+      .timeline::before { display: none; }
+      .timeline li { padding-top: 0; padding-left: 1.25rem; }
+      .timeline li::before { top: 2px; }
+      .culture-grid { grid-template-columns: 1fr; gap: 2.2rem; margin-top: 3rem; }
+      .sources-inner { grid-template-columns: 1fr; }
+      .footer-row { flex-direction: column; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      :root { scroll-behavior: auto; }
+      *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="topbar">
+    <div class="wrap nav-row">
+      <a class="brand" href="#top" aria-label="Chile, from desert to ice — home">
+        <span class="brand-mark" aria-hidden="true">C</span>
+        <span>Field notes · Chile</span>
+      </a>
+      <nav aria-label="Main navigation">
+        <ul>
+          <li><a href="#overview">At a glance</a></li>
+          <li><a href="#people">People</a></li>
+          <li><a href="#places">Places</a></li>
+          <li><a href="#sky">The sky</a></li>
+          <li><a href="#culture">Culture</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero" id="top" aria-labelledby="page-title">
+    <div class="wrap hero-inner">
+      <div>
+        <p class="eyebrow">A country in many climates</p>
+        <h1 id="page-title">Chile,<br>from desert<br>to ice.</h1>
+        <p class="hero-copy">A long Pacific country shaped by the Andes, remarkable skies and landscapes that stretch from the Atacama to Patagonia.</p>
+        <a class="hero-link" href="#overview">Explore the field guide <span aria-hidden="true">↓</span></a>
+      </div>
+      <p class="hero-note"><strong>Along the Pacific edge</strong>About 4,300 km from north to south on the mainland, Chile brings together desert, mountains, forests, fjords and oceanic islands.</p>
+    </div>
+  </section>
+
+  <main id="main">
+    <section class="section section-white" id="overview" aria-labelledby="overview-title">
+      <div class="wrap">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">01 · At a glance</p>
+            <h2 id="overview-title">One country, extraordinary range.</h2>
+          </div>
+          <p>Chile occupies the southwestern edge of South America, with the Pacific to the west and the Andes forming much of its eastern boundary.</p>
+        </div>
+        <div class="fact-grid">
+          <div class="fact"><span class="fact-label">Official name</span><span class="fact-value">Republic of Chile<small>República de Chile</small></span></div>
+          <div class="fact"><span class="fact-label">Capital</span><span class="fact-value">Santiago</span></div>
+          <div class="fact"><span class="fact-label">Language</span><span class="fact-value">Spanish</span></div>
+          <div class="fact"><span class="fact-label">Currency</span><span class="fact-value">Chilean peso<small>CLP</small></span></div>
+          <div class="fact"><span class="fact-label">Administrative regions</span><span class="fact-value">16</span></div>
+          <div class="fact"><span class="fact-label">Highest mountain</span><span class="fact-value">Ojos del Salado<small>Approx. 6,893 m</small></span></div>
+          <div class="fact"><span class="fact-label">Neighbours</span><span class="fact-value">Peru · Bolivia · Argentina</span></div>
+          <div class="fact"><span class="fact-label">Pacific coast</span><span class="fact-value">Yes</span></div>
+        </div>
+        <div class="geography-strip" aria-label="Landscapes from north to south">
+          <div class="landscape"><span>Far north</span><span>High plateau</span></div>
+          <div class="landscape"><span>Norte Grande</span><span>Atacama</span></div>
+          <div class="landscape"><span>Norte Chico</span><span>Valleys</span></div>
+          <div class="landscape"><span>Central Chile</span><span>City & coast</span></div>
+          <div class="landscape"><span>Southern lakes</span><span>Forests</span></div>
+          <div class="landscape"><span>Patagonia</span><span>Ice & fjords</span></div>
+          <div class="landscape"><span>Oceanic</span><span>Rapa Nui</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="people" aria-labelledby="people-title">
+      <div class="wrap">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">02 · People & regions</p>
+            <h2 id="people-title">A census snapshot.</h2>
+          </div>
+          <p>Figures below are people enumerated in Chile's 2024 Population and Housing Census—not a modelled estimate for 2026.</p>
+        </div>
+        <div class="population-layout">
+          <div>
+            <div class="population-total">
+              <span class="fact-label">Enumerated population · 2024</span>
+              <strong class="big-number">18,480,432</strong>
+              <p>People counted across the country's 16 administrative regions.</p>
+            </div>
+            <div class="metric-list" aria-label="Other 2024 census indicators">
+              <div class="metric"><strong>51.5%</strong><span>Women</span></div>
+              <div class="metric"><strong>48.5%</strong><span>Men</span></div>
+              <div class="metric"><strong>14.0%</strong><span>Age 65+</span></div>
+              <div class="metric"><strong>17.7%</strong><span>Age 0–14</span></div>
+              <div class="metric"><strong>7.64m</strong><span>Dwellings</span></div>
+              <div class="metric"><strong>2.8</strong><span>Average household size</span></div>
+            </div>
+          </div>
+          <div class="region-chart">
+            <h3>Population by region</h3>
+            <p class="chart-note">People enumerated · 2024 · largest regions first</p>
+            <ol class="bar-list" aria-label="Regional population, ranked from largest to smallest">
+              <li class="bar-row"><span class="bar-name">Metropolitana de Santiago</span><span class="bar-track"><span class="bar-fill" style="--bar:100%"></span></span><span class="bar-value">7,400,741</span></li>
+              <li class="bar-row"><span class="bar-name">Valparaíso</span><span class="bar-track"><span class="bar-fill" style="--bar:25.6%"></span></span><span class="bar-value">1,896,053</span></li>
+              <li class="bar-row"><span class="bar-name">Biobío</span><span class="bar-track"><span class="bar-fill" style="--bar:21.8%"></span></span><span class="bar-value">1,613,059</span></li>
+              <li class="bar-row"><span class="bar-name">Maule</span><span class="bar-track"><span class="bar-fill" style="--bar:15.2%"></span></span><span class="bar-value">1,123,008</span></li>
+              <li class="bar-row"><span class="bar-name">La Araucanía</span><span class="bar-track"><span class="bar-fill" style="--bar:13.7%"></span></span><span class="bar-value">1,010,423</span></li>
+              <li class="bar-row"><span class="bar-name">O'Higgins</span><span class="bar-track"><span class="bar-fill" style="--bar:13.3%"></span></span><span class="bar-value">987,228</span></li>
+              <li class="bar-row"><span class="bar-name">Los Lagos</span><span class="bar-track"><span class="bar-fill" style="--bar:12%"></span></span><span class="bar-value">890,284</span></li>
+              <li class="bar-row"><span class="bar-name">Coquimbo</span><span class="bar-track"><span class="bar-fill" style="--bar:11.3%"></span></span><span class="bar-value">832,864</span></li>
+              <li class="bar-row"><span class="bar-name">Antofagasta</span><span class="bar-track"><span class="bar-fill" style="--bar:8.6%"></span></span><span class="bar-value">635,416</span></li>
+              <li class="bar-row"><span class="bar-name">Ñuble</span><span class="bar-track"><span class="bar-fill" style="--bar:6.9%"></span></span><span class="bar-value">512,289</span></li>
+              <li class="bar-row"><span class="bar-name">Los Ríos</span><span class="bar-track"><span class="bar-fill" style="--bar:5.4%"></span></span><span class="bar-value">398,230</span></li>
+              <li class="bar-row"><span class="bar-name">Tarapacá</span><span class="bar-track"><span class="bar-fill" style="--bar:5%"></span></span><span class="bar-value">369,806</span></li>
+              <li class="bar-row"><span class="bar-name">Atacama</span><span class="bar-track"><span class="bar-fill" style="--bar:4%"></span></span><span class="bar-value">299,180</span></li>
+              <li class="bar-row"><span class="bar-name">Arica y Parinacota</span><span class="bar-track"><span class="bar-fill" style="--bar:3.3%"></span></span><span class="bar-value">244,569</span></li>
+              <li class="bar-row"><span class="bar-name">Magallanes</span><span class="bar-track"><span class="bar-fill" style="--bar:2.3%"></span></span><span class="bar-value">166,537</span></li>
+              <li class="bar-row"><span class="bar-name">Aysén</span><span class="bar-track"><span class="bar-fill" style="--bar:1.4%"></span></span><span class="bar-value">100,745</span></li>
+            </ol>
+            <p class="population-caveat">The census also counted 6,596,527 households; 21.8% were one-person households. Source: Chile's National Statistics Institute (INE), 2024 Census.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-white" id="places" aria-labelledby="places-title">
+      <div class="wrap">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">03 · Nature & places</p>
+            <h2 id="places-title">A journey down the long edge.</h2>
+          </div>
+          <p>Explore a selection of places from the high Andes to the Pacific islands. Coordinates are approximate markers, not navigation waypoints.</p>
+        </div>
+        <div class="places-controls" role="group" aria-label="Filter places by landscape">
+          <button class="filter-button" type="button" data-filter="all" aria-pressed="true">All places</button>
+          <button class="filter-button" type="button" data-filter="desert" aria-pressed="false">Desert & altiplano</button>
+          <button class="filter-button" type="button" data-filter="andes" aria-pressed="false">Andes & volcanoes</button>
+          <button class="filter-button" type="button" data-filter="coast" aria-pressed="false">Coast & islands</button>
+          <button class="filter-button" type="button" data-filter="south" aria-pressed="false">Southern Chile</button>
+        </div>
+        <label class="search-label" for="place-search">Search by place, region or feature</label>
+        <input class="search-input" id="place-search" type="search" placeholder="For example: glaciers, Antofagasta…" autocomplete="off">
+        <div class="place-grid" id="place-grid">
+          <article class="place-card" data-category="desert" data-search="san pedro de atacama antofagasta desert landscapes high-altitude astronomy">
+            <span class="place-category">Desert & altiplano</span><h3>San Pedro de Atacama</h3><span class="place-region">Antofagasta</span><p>Desert landscapes and high-altitude astronomy.</p><span class="coordinates">−22.91°, −68.20° · approximate</span>
+          </article>
+          <article class="place-card" data-category="desert" data-search="valle de la luna antofagasta eroded desert formations">
+            <span class="place-category">Desert & altiplano</span><h3>Valle de la Luna</h3><span class="place-region">Antofagasta</span><p>Eroded desert formations.</p><span class="coordinates">−22.92°, −68.29° · approximate</span>
+          </article>
+          <article class="place-card" data-category="desert" data-search="salar de atacama antofagasta salt flat flamingos lithium brines">
+            <span class="place-category">Desert & altiplano</span><h3>Salar de Atacama</h3><span class="place-region">Antofagasta</span><p>Salt flat, flamingos and lithium-rich brines.</p><span class="coordinates">−23.50°, −68.25° · approximate</span>
+          </article>
+          <article class="place-card" data-category="andes" data-search="el tatio geysers antofagasta geothermal high-altitude">
+            <span class="place-category">Andes & volcanoes</span><h3>El Tatio geysers</h3><span class="place-region">Antofagasta</span><p>A high-altitude geothermal field.</p><span class="coordinates">−22.33°, −68.01° · approximate</span>
+          </article>
+          <article class="place-card" data-category="andes" data-search="lauca national park arica y parinacota altiplano lakes volcanoes">
+            <span class="place-category">Andes & volcanoes</span><h3>Lauca National Park</h3><span class="place-region">Arica y Parinacota</span><p>Altiplano lakes and volcanoes.</p><span class="coordinates">−18.20°, −69.27° · approximate</span>
+          </article>
+          <article class="place-card" data-category="andes" data-search="ojos del salado atacama border active volcano highest">
+            <span class="place-category">Andes & volcanoes</span><h3>Ojos del Salado</h3><span class="place-region">Atacama border area</span><p>The world's highest active volcano, commonly cited.</p><span class="coordinates">−27.11°, −68.54° · approximate</span>
+          </article>
+          <article class="place-card" data-category="coast" data-search="valparaiso historic centre port city architecture hills">
+            <span class="place-category">Coast & islands</span><h3>Valparaíso historic centre</h3><span class="place-region">Valparaíso</span><p>Hillside port-city architecture.</p><span class="coordinates">−33.05°, −71.62° · approximate</span>
+          </article>
+          <article class="place-card" data-category="andes" data-search="villarrica volcano la araucania active volcano outdoor recreation">
+            <span class="place-category">Andes & volcanoes</span><h3>Villarrica volcano</h3><span class="place-region">La Araucanía</span><p>An active volcano and outdoor recreation area.</p><span class="coordinates">−39.42°, −71.93° · approximate</span>
+          </article>
+          <article class="place-card" data-category="south" data-search="chiloe island los lagos wooden churches island culture">
+            <span class="place-category">Southern Chile</span><h3>Chiloé Island</h3><span class="place-region">Los Lagos</span><p>Wooden churches and distinctive island culture.</p><span class="coordinates">−42.60°, −73.95° · approximate</span>
+          </article>
+          <article class="place-card" data-category="south" data-search="marble caves aysen general carrera lake marble formations">
+            <span class="place-category">Southern Chile</span><h3>Marble Caves</h3><span class="place-region">Aysén</span><p>Marble formations in General Carrera Lake.</p><span class="coordinates">−46.66°, −72.63° · approximate</span>
+          </article>
+          <article class="place-card" data-category="south" data-search="torres del paine magallanes granite towers glaciers hiking patagonia">
+            <span class="place-category">Southern Chile</span><h3>Torres del Paine</h3><span class="place-region">Magallanes</span><p>Granite towers, glaciers and hiking in Patagonia.</p><span class="coordinates">−50.94°, −73.41° · approximate</span>
+          </article>
+          <article class="place-card" data-category="coast" data-search="rapa nui pacific ocean moai polynesian heritage island">
+            <span class="place-category">Coast & islands</span><h3>Rapa Nui</h3><span class="place-region">Pacific Ocean</span><p>Moai and Polynesian heritage.</p><span class="coordinates">−27.12°, −109.35° · approximate</span>
+          </article>
+        </div>
+        <p class="no-results" id="no-results" role="status" hidden>No places match your search. Try another word or filter.</p>
+        <p class="small-note">For travel planning, check official local guidance and current conditions. These approximate coordinates are intended for orientation only.</p>
+      </div>
+    </section>
+
+    <section class="section section-dark" aria-labelledby="phenomena-title">
+      <div class="wrap">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">04 · Forces that shape the land</p>
+            <h2 id="phenomena-title">A landscape in motion.</h2>
+          </div>
+          <p>Climate, tectonic forces and rapidly changing weather help explain the contrasts along Chile's length.</p>
+        </div>
+        <div class="phenomena-grid">
+          <article class="phenomenon">
+            <span class="phenomenon-number">01 / NORTH</span>
+            <h3>The Atacama Desert</h3>
+            <p>Among Earth's driest non-polar regions. Atmospheric circulation, the Andes rain shadow and the cold Humboldt Current contribute to its aridity. Unusual rainfall can trigger spectacular flowering.</p>
+          </article>
+          <article class="phenomenon">
+            <span class="phenomenon-number">02 / ANDES</span>
+            <h3>Mountains & volcanoes</h3>
+            <p>The Nazca Plate subducts beneath the South American Plate, helping drive Andean mountain building and volcanism. The plate boundary is also associated with major earthquakes.</p>
+          </article>
+          <article class="phenomenon">
+            <span class="phenomenon-number">03 / SOUTH</span>
+            <h3>Patagonia</h3>
+            <p>Fjords, glaciers, temperate forests and the Southern Patagonian Ice Field shape the south. Weather can change rapidly, and strong winds are characteristic of many exposed places.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-dark" id="sky" aria-labelledby="sky-title" style="background:#203b43">
+      <div class="wrap">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">05 · Astronomy</p>
+            <h2 id="sky-title">A window on the universe.</h2>
+          </div>
+          <p>High-altitude sites, dry air and frequently clear skies have made northern Chile a major global astronomy hub.</p>
+        </div>
+        <div class="observatory-grid">
+          <article class="observatory"><h3>ALMA</h3><p class="location">Chajnantor Plateau · Atacama</p><p><span class="altitude">Approx. 5,000 m</span><br>66 antennas for millimetre and submillimetre astronomy.</p></article>
+          <article class="observatory"><h3>Very Large Telescope</h3><p class="location">Cerro Paranal</p><p><span class="altitude">Approx. 2,635 m</span><br>Four 8.2 m Unit Telescopes for optical and infrared astronomy.</p></article>
+          <article class="observatory"><h3>La Silla Observatory</h3><p class="location">Coquimbo Region</p><p><span class="altitude">Approx. 2,400 m</span><br>Optical astronomy and exoplanet research.</p></article>
+          <article class="observatory"><h3>Gemini South</h3><p class="location">Cerro Pachón</p><p><span class="altitude">Approx. 2,700 m</span><br>An 8.1 m optical and infrared telescope.</p></article>
+          <article class="observatory"><h3>Vera C. Rubin Observatory</h3><p class="location">Cerro Pachón</p><p><span class="altitude">Approx. 2,600 m</span><br>Wide-field survey astronomy.</p></article>
+          <article class="observatory"><h3>Extremely Large Telescope</h3><p class="location">Cerro Armazones</p><p><span class="altitude">Approx. 3,046 m</span><br>A 39 m-class optical and infrared telescope project.</p></article>
+        </div>
+        <p class="observatory-note">Altitudes are rounded. Telescope status, access and observing schedules can change; check the facilities' official websites before publication or travel.</p>
+      </div>
+    </section>
+
+    <section class="section section-white" id="culture" aria-labelledby="culture-title">
+      <div class="wrap">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">06 · History & everyday life</p>
+            <h2 id="culture-title">Stories carried through time.</h2>
+          </div>
+          <p>A short selection of historical milestones alongside dishes and cultural topics from across the country.</p>
+        </div>
+        <ol class="timeline" aria-label="Selected historical timeline">
+          <li><time>Before European arrival</time><p>Diverse Indigenous societies, including Mapuche, Aymara, Rapa Nui and others.</p></li>
+          <li><time>1541</time><p>Santiago founded by Pedro de Valdivia.</p></li>
+          <li><time>1810–1818</time><p>Independence process begins; independence formally proclaimed in 1818.</p></li>
+          <li><time>1879–1884</time><p>War of the Pacific.</p></li>
+          <li><time>1960</time><p>Valdivia earthquake, magnitude 9.5 (moment magnitude estimate).</p></li>
+          <li><time>1973</time><p>Military coup; beginning of Augusto Pinochet's dictatorship.</p></li>
+          <li><time>1988</time><p>Plebiscite rejects continuation of Pinochet's rule.</p></li>
+          <li><time>1990</time><p>Return to civilian democratic government.</p></li>
+          <li><time>2010</time><p>Major Maule earthquake and tsunami.</p></li>
+        </ol>
+        <div class="culture-grid">
+          <div class="culture-block">
+            <h3>From the table</h3>
+            <ul class="food-list">
+              <li><strong>Empanada de pino</strong><span>Beef, onion, egg & olives</span></li>
+              <li><strong>Pastel de choclo</strong><span>Corn-topped baked casserole</span></li>
+              <li><strong>Cazuela</strong><span>Broth, meat & vegetables</span></li>
+              <li><strong>Curanto</strong><span>Chiloé seafood, meat & potatoes</span></li>
+              <li><strong>Completo</strong><span>Chilean-style hot dog</span></li>
+              <li><strong>Sopaipillas</strong><span>Fried dough, often with pumpkin</span></li>
+              <li><strong>Mote con huesillos</strong><span>Wheat & dried peaches</span></li>
+              <li><strong>Pebre</strong><span>Tomato, onion, herbs & chili</span></li>
+            </ul>
+          </div>
+          <div class="culture-block">
+            <h3>More to discover</h3>
+            <ul class="culture-topics">
+              <li>Mapuche language, history and contemporary culture.</li>
+              <li>Rapa Nui heritage and moai conservation.</li>
+              <li>Pablo Neruda and Gabriela Mistral in literature.</li>
+              <li>Cueca music and dance.</li>
+              <li>Valparaíso street art and port history.</li>
+              <li>Earthquakes, building codes and everyday preparedness.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <section class="sources" aria-labelledby="sources-title">
+    <div class="wrap sources-inner">
+      <div>
+        <p class="eyebrow">Continue exploring</p>
+        <h2 id="sources-title">Sources & further reading</h2>
+        <p>Figures and descriptions are based on the source notes in this project's dataset. Verify current details with the primary source before reuse.</p>
+      </div>
+      <ul class="source-list">
+        <li><a href="https://www.gob.cl/nuestro-pais/" target="_blank" rel="noopener noreferrer">Chilean government · Country overview</a></li>
+        <li><a href="https://censo2024.ine.gob.cl/" target="_blank" rel="noopener noreferrer">INE · 2024 Census</a></li>
+        <li><a href="https://www.ine.gob.cl/sala-de-prensa/prensa/general/noticia/2025/03/28/the-first-results-of-the-2024-census-18-480-432-people-enumerated-in-chile-and-an-increasing-trend-in-population-aging" target="_blank" rel="noopener noreferrer">INE · Census first results</a></li>
+        <li><a href="https://visualizador.ine.gob.cl/" target="_blank" rel="noopener noreferrer">INE · Geographic census viewer</a></li>
+        <li><a href="https://www.conaf.cl/" target="_blank" rel="noopener noreferrer">CONAF · Protected areas</a></li>
+        <li><a href="https://chile.travel/" target="_blank" rel="noopener noreferrer">Chile Travel · Tourism</a></li>
+        <li><a href="https://whc.unesco.org/en/statesparties/cl" target="_blank" rel="noopener noreferrer">UNESCO · World Heritage in Chile</a></li>
+        <li><a href="https://www.sernageomin.cl/" target="_blank" rel="noopener noreferrer">SERNAGEOMIN · Geology & mining</a></li>
+        <li><a href="https://www.eso.org/" target="_blank" rel="noopener noreferrer">ESO · European Southern Observatory</a></li>
+        <li><a href="https://www.almaobservatory.org/" target="_blank" rel="noopener noreferrer">ALMA Observatory</a></li>
+        <li><a href="https://www.gemini.edu/" target="_blank" rel="noopener noreferrer">Gemini Observatory</a></li>
+        <li><a href="https://rubinobservatory.org/" target="_blank" rel="noopener noreferrer">Vera C. Rubin Observatory</a></li>
+        <li><a href="https://www.bibliotecanacional.gob.cl/" target="_blank" rel="noopener noreferrer">Chilean National Library</a></li>
+      </ul>
+    </div>
+  </section>
+  <footer>
+    <div class="wrap footer-row">
+      <span>Chile · A small field guide from the project's source notes</span>
+      <span>One HTML file · No build step or external assets</span>
+    </div>
+  </footer>
+
+  <script>
+    (() => {
+      const buttons = [...document.querySelectorAll(".filter-button")];
+      const cards = [...document.querySelectorAll(".place-card")];
+      const search = document.querySelector("#place-search");
+      const noResults = document.querySelector("#no-results");
+      let activeFilter = "all";
+
+      function updatePlaces() {
+        const query = search.value.trim().toLocaleLowerCase();
+        let visibleCount = 0;
+
+        for (const card of cards) {
+          const matchesFilter = activeFilter === "all" || card.dataset.category === activeFilter;
+          const matchesSearch = !query || card.dataset.search.includes(query);
+          const visible = matchesFilter && matchesSearch;
+          card.hidden = !visible;
+          if (visible) visibleCount += 1;
+        }
+
+        noResults.hidden = visibleCount > 0;
+      }
+
+      for (const button of buttons) {
+        button.addEventListener("click", () => {
+          activeFilter = button.dataset.filter;
+          for (const otherButton of buttons) {
+            otherButton.setAttribute("aria-pressed", String(otherButton === button));
+          }
+          updatePlaces();
+        });
+      }
+
+      search.addEventListener("input", updatePlaces);
+    })();
+  </script>
+</body>
+</html>
